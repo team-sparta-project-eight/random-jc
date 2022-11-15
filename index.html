@@ -12,6 +12,7 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <title>스벅이면 다 좋앙ㅋ</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -70,24 +71,61 @@
  }
     </style>
 <script>
-        function get_product() {
+    // 바로 보여지기
+    $(document).ready(function () {
+        show_product();
+
+    });
+    //상품 랜덤 추출 및 보여지기
+        function show_product() {
         $.ajax({
-            type: "POST",
-            url: "/https://starbugs.herokuapp.com/api/menus",
-            data: {id_give: id , name_give: name ,image_give: image },
-            success: function (response){
-                let rows = response
-                for (let i = 0; i<30; i++){
-                    let id = rows[i]['id']
-                    let name = rows[i]['name']
-                    let image = rows[i]['image']
-                    console.log(id,name,image)
+            type: "GET",
+            url: "/product",
+            data: {},
+            success: function (response) {
+                let rows = response['product']
+                console.log(rows)
+
+                let i = Math.floor(Math.random() * rows.length);  {
+                    let name= rows[i]['name']
+                    let image=rows[i]['image']
+
+                    let temp_name = `<div id="name" class="product-name">
+                                                ${name}
+                                            </div>`
+                    $('#name').append(temp_name)
+                    let temp_image = `<div id="image" class="product-image">
+                        <img class="image" src= ${image} >
+                          </div>`
+                    $('#image').append(temp_image)
                 }
 
-            }
+                }
 
-        })
-            }
+
+            });}
+        // 댓글 데이터 저장
+        function save_Comment() {
+            if ($('#floatingTextarea2').val().length === 0) {
+                alert("댓글을 입력하세요!")
+
+            } else {
+                let product_pk2 = product_pk1
+                let comments = $('#floatingTextarea2').val()
+                $('#floatingTextarea2').val('')
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Comment",
+                    data: {
+                        product_pk_give: product_pk2,
+                        comments_give: comments,
+                    },
+                    success: function (response) {
+                        show_comments()
+                    },
+                })
+            }}
 
 </script>
 
@@ -100,17 +138,17 @@
 <div class="toptitle"> 스 다 좋 </div>
 <button onclick="history.back()" class="back-btn">back</button>
 
-<button onclick="get_product()">정보가져오기</button>
-<div class="result-page">
-    <div class="product-image">
-        <img class="image" src= "https://www.istarbucks.co.kr/upload/store/skuimg/2019/06/[9300000002115]_20190626101440361.jpg" >
+
+<div id="product" class="result-page">
+    <div id="image" class="product-image">
+        <img class="image" src=  >
     </div>
-    <div class="product-name">
-        수박 주스
+    <div id="name" class="product-name">
+
     </div>
     <div style="overflow:scroll;width:790px;height:130px;"   class="comment">
     <li>asce : gwfeeeeee</li>
-        <li>asce : gwfeeeeee</li>
+        <li>asce : gwfeeeeee<button style=color:white;>수정</button><button>삭제</button></li>
         <li>asce : gwfeeeeee</li>
         <li>asce : gwfeeeeee</li>
         <li>asce : gwfeeeeee</li>
