@@ -10,18 +10,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-    <SCRIPT LANGUAGE="JavaScript">
-
-    </SCRIPT>
     <style>
         * {
             font-family: 'Nanum Gothic', sans-serif;
         }
-        a { text-decoration: none; color: black; }
-        a:visited { text-decoration: none; }
-        a:hover { text-decoration: none; }
-        a:focus { text-decoration: none; }
-        a:hover, active { text-decoration: none; }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:visited {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        a:focus {
+            text-decoration: none;
+        }
+
+        a:hover, active {
+            text-decoration: none;
+        }
 
         body {
             background-color: transparent;
@@ -35,7 +48,7 @@
             height: 100vh;
             width: 100%;
             top: 0;
-            opacity: 10%; /* 투명화 */
+            opacity: 10%;
             z-index: -999;
         }
 
@@ -66,26 +79,41 @@
             justify-content: center;
             background-color: transparent;
         }
+
         h2 {
             margin-bottom: 40px;
             font-size: 40px;
         }
 
+        .random_login {
+            background-color: transparent;
+            display: flex;
+            margin-top: 150px;
+
+        }
+
         .main_box {
             background-color: transparent;
+            opacity: 80%;
             border: 2px solid black;
             border-radius: 20px;
             width: 380px;
             height: 450px;
             margin: auto;
-            margin-top: 150px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            z-index: 500;
         }
-        .main_box > button {
 
+        #random_img {
+            width: 400px;
+            height: 400px;
+            border-radius: 194px;
+            margin: auto;
+            margin-right: -100px;
+            opacity: 80%;
         }
 
         .form-control {
@@ -100,11 +128,28 @@
     <script>
 
     </script>
-    <script>
+    <script type="text/javascript">
+        var imgArray = new Array();
+        imgArray[0] = "/static/1.jpg";
+        imgArray[1] = "/static/2.jpg";
+        imgArray[2] = "/static/3.jpg";
+        imgArray[3] = "/static/4.jpg";
+        imgArray[4] = "/static/5.jpg";
+        imgArray[5] = "/static/6.jpg";
+        imgArray[6] = "/static/7.jpg";
+        imgArray[7] = "/static/8.jpg";
+        imgArray[8] = "/static/9.jpg";
+
+        function showImage() {
+            var imgNum = Math.round(Math.random() * 8);
+            var objImg = document.getElementById("random_img");
+            objImg.src = imgArray[imgNum];
+            setTimeout(showImage, 800);
+        }
 
     </script>
 </head>
-<body>
+<body onLoad="showImage()">
 <img src="../static/cafe.png">
 <div class="main_header">
     <a href="#">스벅이면 다좋앙</a>
@@ -112,13 +157,14 @@
         <button type="button" class="btn btn-outline-dark">회원가입</button>
     </div>
 </div>
-<div>
+<div class="random_login">
+    <img id="random_img">
     <div class="main_box">
         <h2>로 그 인</h2>
         <div class="mb-3 row">
             <label for="inputPassword" class="col-sm-2 col-form-label">I D</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputPassword">
+                <input type="text" class="form-control">
             </div>
         </div>
         <div class="mb-3 row">
