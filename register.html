@@ -24,24 +24,26 @@
             const userNickValue = $('#usernick').val()
             const userPwValue2 = $('#userpw2').val()
 
-            const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/
 
-            const a = reg.test(userPwValue)
-            console.log(a)
+            const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,10}$/
+            const pwCheck = reg.test(userPwValue)
 
-
-
+            const reg2 = /^[a-z0-9]{4,10}$/
+            const idCheck = reg2.test(userIdValue)
 
             if (!userIdValue || !userPwValue || !userNickValue) {
                 alert('빈칸없이 입력하세요')
+            
+            } else if (!idCheck) {
+                alert('아이디는 영문소문자 숫자조합 4~10자')
+
+            } else if (!pwCheck) {
+                alert('비밀번호는 대문자 소문자 숫자 특수기호를 포함한 8-10자 ')
 
             } else if
             (userPwValue !== userPwValue2) {
                 alert('패스워드가 일치하지 않습니다')
-            }
-
-
-            else {
+            } else {
                 $.ajax({
                     type: "POST",
                     url: "/api/register",
@@ -91,7 +93,7 @@
                     <div class="control">
                         <div class="id-box">
                             <input type="text" class="input" id="userid" aria-describedby="emailHelp"
-                                   placeholder="My ID">
+                                   placeholder="영문 4-12자">
                             <button class="button" onclick="cal()">ID중복확인</button>
                         </div>
 
@@ -106,7 +108,7 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control">
-                        <input type="password" class="input" id="userpw" placeholder="My Password">
+                        <input type="password" class="input" id="userpw" placeholder="대문자 소문자 특수문자 숫자를 포함한 4~12자">
                     </div>
                 </div>
             </div>
