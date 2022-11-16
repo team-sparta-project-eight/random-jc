@@ -5,129 +5,158 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
     <title>스벅이면 다 좋앙ㅋ</title>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+          rel="stylesheet">
     <style>
         * {
             font-family: 'Noto Serif KR', serif;
         }
-.toptitle{
-    font-size: 60px;
-    color: whitesmoke;
-    text-align : center;
 
-    background-color: skyblue;
+        .toptitle {
+            font-size: 60px;
+            color: whitesmoke;
+            text-align: center;
 
-    height: 100px;
+            background-color: skyblue;
 
-    border-radius: 30px;
-    margin: 20px 20px 20px 20px;
-        padding: 0px 0px 0px 0px;
-        border-bottom: solid 2px whitesmoke;
-}
- .back-btn {
-     border: 10px solid transparent;
-     border-radius: 18px;
-     font-size: 15px;
-     position: fixed;
- }
- .result-page{
-     background-color: white;
-     border: 2px double gray;
-     height: auto;
-     margin: 90px 350px 20px 350px;
- }
- .product-image{
-     border: 1px solid whitesmoke;
-     margin: 20px 20px 20px 20px;
- }
- .image{
-     height: 500px;
-     weight: 400px ;
-     margin-left: 18%;
- }
- .product-name{
-     text-align: center;
-     margin-bottom: 20px;
-     font-size: 15px;
- }
- .comment{
+            height: 100px;
+
+            border-radius: 30px;
+            margin: 20px 20px 20px 20px;
+            padding: 0px 0px 0px 0px;
+            border-bottom: solid 2px whitesmoke;
+        }
+
+        .back-btn {
+            border: 10px solid transparent;
+            border-radius: 18px;
+            font-size: 15px;
+            position: fixed;
+        }
+
+        .result-page {
+            background-color: white;
+            border: 2px double gray;
+            height: auto;
+            margin: 90px 350px 20px 350px;
+        }
+
+        .product-image {
+            border: 1px solid whitesmoke;
+            margin: 20px 20px 20px 20px;
+        }
+
+        .image {
+            height: 500px;
+            weight: 400px;
+            margin-left: 18%;
+        }
+
+        .product-name {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .comment {
 
 
+            border: 2px double black;
+            text-align: left;
+        }
 
-     border: 2px double black;
-    text-align: left;
- }
- .comment-made{
-     margin-left: 18%;
+        .comment-made {
+            margin-left: 18%;
 
- }
+        }
     </style>
-<script>
-    // 바로 보여지기
-    $(document).ready(function () {
-        show_product();
+    <script>
+        // 바로 보여지기
+        $(document).ready(function () {
+            show_product();
 
-    });
-    //상품 랜덤 추출 및 보여지기
+
+        });
+
+        //상품 랜덤 추출 및 댓글 보여지기
         function show_product() {
-        $.ajax({
-            type: "GET",
-            url: "/product",
-            data: {},
-            success: function (response) {
-                let rows = response['product']
-                console.log(rows)
+            $.ajax({
+                type: "GET",
+                url: "/product",
+                data: {},
+                success: function (response) {
+                    let rows = response['product']
+                    console.log(rows)
 
-                let i = Math.floor(Math.random() * rows.length);  {
-                    let name= rows[i]['name']
-                    let image=rows[i]['image']
+                    let i = Math.floor(Math.random() * rows.length)
+                    {
+                        let name_pk = rows[i]['name']
+                        let image = rows[i]['image']
+                        let user = rows[i]['users']
+                        let comment = rows[i]['comment']
 
-                    let temp_name = `<div id="name" class="product-name">
-                                                ${name}
+                        let temp_name = `<div id="name" class="product-name">
+                                                ${name_pk}
                                             </div>`
-                    $('#name').append(temp_name)
-                    let temp_image = `<div id="image" class="product-image">
+                        $('#name').append(temp_name)
+                        let temp_image = `<div id="image" class="product-image">
                         <img class="image" src= ${image} >
                           </div>`
-                    $('#image').append(temp_image)
-                }
+                        $('#image').append(temp_image)
+
+                        let temp_user = ` <div id="user"><li style="float:left;">${user}:</li><h7 id="comment"></h7></div>`
+                        $('#user').append(temp_user)
+                        let temp_comment = `<h7 id="comment">${comment}</h7></div>`
+                        $('#comment').append(temp_comment)
+                    }
 
                 }
 
 
-            });}
+            });
+        }
+
         // 댓글 데이터 저장
-        function save_Comment() {
-            if ($('#floatingTextarea2').val().length === 0) {
+
+        function save_comment() {
+
+            let comment = $('#Textarea').val()
+            let name_pk = $('#name').val()
+            //이 아래서부터 문제
+            if (!comment) {
+
                 alert("댓글을 입력하세요!")
 
+
             } else {
-                let product_pk2 = product_pk1
-                let comments = $('#floatingTextarea2').val()
-                $('#floatingTextarea2').val('')
+
 
                 $.ajax({
                     type: "POST",
-                    url: "/Comment",
+                    url: "/product",
                     data: {
-                        product_pk_give: product_pk2,
-                        comments_give: comments,
+                        comment_give: comment,
+                        name_pk_give: name_pk,
                     },
-                    success: function (response) {
-                        show_comments()
-                    },
+                    success:
+                        function (response) {
+                            window.location.reload()
+                        },
                 })
-            }}
+            }
+        }
 
-</script>
+
+    </script>
 
 
 </head>
@@ -135,38 +164,41 @@
 
 <body>
 
-<div class="toptitle"> 스 다 좋 </div>
+<div class="toptitle"> 스 다 좋</div>
 <button onclick="history.back()" class="back-btn">back</button>
 
 
 <div id="product" class="result-page">
     <div id="image" class="product-image">
-        <img class="image" src=  >
+        <img class="image" src=>
     </div>
     <div id="name" class="product-name">
 
     </div>
-    <div style="overflow:scroll;width:790px;height:130px;"   class="comment">
-    <li>asce : gwfeeeeee</li>
-        <li>asce : gwfeeeeee<button style=color:white;>수정</button><button>삭제</button></li>
-        <li>asce : gwfeeeeee</li>
-        <li>asce : gwfeeeeee</li>
-        <li>asce : gwfeeeeee</li>
-        <li>asce : gwfeeeeee</li>
-        <li>asce : gwfeeeeee</li>
-        <li>asce : gwfeeeeee</li>
+    <div>
+        <div style="overflow:scroll;width:790px;height:130px;" class="comment">
+            <div id="user">
+                <li style="float:left;"></li>
+                <h7 id="comment"></h7>
+            </div>
+
+
+        </div>
+        <form>
+            <div class="form-floating">
+                                <textarea maxlength="200" class="form-control" placeholder="Leave a comment here"
+                                          id="Textarea" style="height: 60px"></textarea>
+                <label for="Textarea">댓글 입력... (※최대 200자)</label>
+            </div>
+        </form>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="save_comment()">댓글달기</button>
+
+        </div>
 
     </div>
-    <textarea maxlength="200" class="form-control" placeholder="Leave a comment here"
-                                          id="floatingTextarea2" style="height: 60px"></textarea>
-
-    <button type="button" class="btn btn-secondary" onclick="save_Comment()">댓글달기</button>
-
-
-
 </div>
-
-
 
 
 </body>

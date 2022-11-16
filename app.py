@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, jsonify , session
+from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 
@@ -18,28 +18,20 @@ def product_get():
     return jsonify({'product': product_list})
 
 # 댓글 데이터 저장
-@app.route('/Comment', methods=["post"])
-def Comment():
-    postwrite_pk_receive = request.form['product_pk_give']
-    comments_receive = request.form['comments_give']
-
-
-    comment_count = db.Counts.find_one({'count_pk': 0}, {'_id': False})
-    count = comment_count['comment_count'] + 1
-
-    doc = {
-        'product_pk': int(postwrite_pk_receive),
-        'comments_pk': count,
-        'comments': comments_receive,
-        'comments_flag': 0,
-        # 접속유저 pk(세션)
-        'comments_id': db.User.find_one({'user_pk': 5}, {'_id': False}),
-
+@app.route("/product", methods=["POST"])
+def comment():
+    comment_receive = request.form['comment_give']
+    name_pk_receive = request.form['name_pk_give']
+    doc={
+        'commment': comment_receive,
+        'name_pk': name_pk_receive
     }
-    db.Comment.insert_one(doc)
-    db.Counts.update_one({'count_pk': 0}, {'$set': {'comment_count': count}})
+    db.product.update_one({'name': name_pk_receive  }, {'$set': {'comment': comment_receive}})
+
 
     return jsonify({'msg': '댓글 작성 완료!'})
+
+
 
 
 if __name__ == '__main__':
