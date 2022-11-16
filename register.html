@@ -1,148 +1,170 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
+        <meta charset="UTF-8">
+        <title>로그인</title>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
+        <SCRIPT LANGUAGE="JavaScript">
 
-    <!-- Webpage Title -->
-    <title>Hello, world!</title>
-
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bulma CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
-    <script>
-        // 간단한 회원가입 함수입니다.
-        // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
-        function register() {
-            const userIdValue = $('#userid').val()
-            const userPwValue = $('#userpw').val()
-            const userNickValue = $('#usernick').val()
-            const userPwValue2 = $('#userpw2').val()
-
-
-            const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,10}$/
-            const pwCheck = reg.test(userPwValue)
-
-            const reg2 = /^[a-z0-9]{4,10}$/
-            const idCheck = reg2.test(userIdValue)
-
-            if (!userIdValue || !userPwValue || !userNickValue) {
-                alert('빈칸없이 입력하세요')
-            
-            } else if (!idCheck) {
-                alert('아이디는 영문소문자 숫자조합 4~10자')
-
-            } else if (!pwCheck) {
-                alert('비밀번호는 대문자 소문자 숫자 특수기호를 포함한 8-10자 ')
-
-            } else if
-            (userPwValue !== userPwValue2) {
-                alert('패스워드가 일치하지 않습니다')
-            } else {
-                $.ajax({
-                    type: "POST",
-                    url: "/api/register",
-                    data: {
-                        id_give: userIdValue,
-                        pw_give: userPwValue,
-                        nickname_give: userNickValue
-                    },
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            alert('회원가입이 완료되었습니다.')
-                            window.location.href = '/login'
-                        } else {
-                            alert(response['msg'])
-                        }
-                    }
-                })
+        </SCRIPT>
+        <style>
+            * {
+                font-family: 'Nanum Gothic', sans-serif;
             }
-        }
 
+            a {
+                text-decoration: none;
+                color: black;
+            }
 
-    </script>
-    <style>
-        .id-box {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
+            a:visited {
+                text-decoration: none;
+            }
 
-        }
+            a:hover {
+                text-decoration: none;
+            }
 
-        .id-box > button {
-            width: 10vh;
-        }
-    </style>
-</head>
-<body>
-<div class="section has-text-centered">
-    <h1 class="title">회원가입 페이지</h1>
-    <div class="container" style="width:25%">
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label" for="userid">ID</label>
+            a:focus {
+                text-decoration: none;
+            }
+
+            a:hover, active {
+                text-decoration: none;
+            }
+
+            body {
+                background-color: transparent;
+                margin: 0;
+                padding: 0;
+            }
+
+            body > img {
+                background-color: transparent;
+                position: fixed;
+                height: 100vh;
+                width: 100%;
+                top: 0;
+                opacity: 10%; /* 투명화 */
+                z-index: -999;
+            }
+
+            .main_header {
+                background-color: transparent;
+                margin: 0px;
+                height: 13vh;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 3px solid black;
+                padding-left: 30px;
+                font-size: 30px;
+            }
+
+            .wrap {
+                display: flex;
+                background-color: transparent;
+                margin-right: 40px;
+            }
+
+            h1 {
+                display: flex;
+                justify-content: center;
+                background-color: transparent;
+            }
+
+            h2 {
+                margin-bottom: 40px;
+                font-size: 40px;
+            }
+
+            .main_box {
+                background-color: transparent;
+                border: 2px solid black;
+                border-radius: 20px;
+                width: 380px;
+                height: 550px;
+                margin: auto;
+                margin-top: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .form-control {
+                width: 300px;
+            }
+
+            .mb-3 {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .id-check {
+                margin-left: 215px;
+                margin-top: 10px;
+            }
+
+            .pw {
+                margin-top: -30px;
+            }
+
+            .pw-check {
+                margin-left: 165px;
+            }
+        </style>
+        <script>
+
+        </script>
+        <script>
+
+        </script>
+    </head>
+    <body>
+        <img src="../static/cafe.png">
+        <div class="main_header">
+            <a href="#">스벅이면 다좋앙</a>
+            <div class="wrap">
             </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control">
-                        <div class="id-box">
-                            <input type="text" class="input" id="userid" aria-describedby="emailHelp"
-                                   placeholder="영문 4-12자">
-                            <button class="button" onclick="cal()">ID중복확인</button>
+        </div>
+        <div>
+            <div class="main_box">
+                <h2>회원가입</h2>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">I D</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPassword">
+                    </div>
+                    <div class="id-check">
+                        <button type="button" class="btn btn-outline-dark">중복확인</button>
+                    </div>
+                </div>
+                <div class="pw">
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword">
                         </div>
-
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm- col-form-label">Password check</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+                    </div>
+                    <div class="pw-check">
+                        <button type="button" onclick="location.href ='/login' " class="btn btn-outline-dark">확인</button>
+                        <button type="button" onclick="location.href ='/first' " class="btn btn-outline-dark" style="margin-left: 20px">취소</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label" for="userpw">PW</label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control">
-                        <input type="password" class="input" id="userpw" placeholder="대문자 소문자 특수문자 숫자를 포함한 4~12자">
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label" for="userpw">PW확인</label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control">
-                        <input type="password" class="input" id="userpw2" placeholder="Password confirm">
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label" for="usernick">NICKNAME</label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control">
-                        <input type="text" class="input" id="usernick" placeholder="My Nickname">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="button is-primary" onclick="register()">회원가입</button>
-    </div>
-</div>
-</body>
+    </body>
 </html>
