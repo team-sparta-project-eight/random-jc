@@ -14,7 +14,7 @@ import datetime
 app = Flask(__name__)
 
 from pymongo import MongoClient
-client = MongoClient('mongodb+srv://mookim:2406@cluster0.sptev7m.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('몽고디비url')
 
 db = client.dbsparta_plus_week4
 
