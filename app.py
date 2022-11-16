@@ -1,11 +1,15 @@
 from flask import Flask, redirect, url_for, request, jsonify, render_template
 from bson import ObjectId
 
-app = Flask(__name__)
+
 
 SECRET_KEY = 'SPARTA'
 
 import jwt
+
+import hashlib
+
+import datetime
 
 app = Flask(__name__)
 
