@@ -14,8 +14,9 @@ import datetime
 app = Flask(__name__)
 
 from pymongo import MongoClient
-client = MongoClient('mongodb+srv://test:sparta@cluster0.gok1afs.mongodb.net/Cluster0?retryWrites=true&w=majority')
-db = client.dbsparta
+client = MongoClient('mongodb+srv://mookim:2406@cluster0.sptev7m.mongodb.net/Cluster0?retryWrites=true&w=majority')
+
+db = client.dbsparta_plus_week4
 
 # 페이지 영역
 @app.route('/')
@@ -85,7 +86,7 @@ def api_register():
 
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
-    nickname_receive = request.form['nickname_give']
+    # nickname_receive = request.form['nickname_give']
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
     result = db.user.find_one({'id': id_receive})
@@ -94,7 +95,7 @@ def api_register():
         return jsonify({'result': 'fail', 'msg': 'ID 중복 여부를 확인해 주세요'})
 
     else:
-        db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
+        db.user.insert_one({'id': id_receive, 'pw': pw_hash})
         return jsonify({'result': 'success'})
 
 
@@ -122,6 +123,7 @@ def api_login():
             'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=5)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+
 
         # token을 줍니다.
         return jsonify({'result': 'success', 'token': token})

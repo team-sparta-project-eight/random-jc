@@ -121,10 +121,86 @@
         }
     </style>
     <script>
+        // 간단한 회원가입 함수입니다.
+        // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
 
-    </script>
-    <script>
+        function dupCheckId() {
+            console.log('hi')
+            const userIdValue = $('#inputId').val()
+            const idReg = /^[A-Za-z]{1}(?=.*?[0-9])[A-Za-z0-9]{3,9}$/
+            const idCheck = idReg.test(userIdValue)
 
+            if (!userIdValue) {
+                alert('입력하세요')
+            } else if (!idCheck) {
+                alert('아이디는 영문소문자 숫자조합 4~10자')
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/dup",
+                    data: {
+                        id_give: userIdValue
+                    },
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            alert('사용가능한 아이디 입니다')
+
+                        } else {
+                            alert(response['msg'])
+                        }
+                    }
+                })
+
+            }
+
+        }
+
+         function register() {
+            const userIdValue = $('#inputId').val()
+            const userPwValue = $('#inputPassword').val()
+            {#const userNickValue = $('#usernick').val()#}
+            const userPwValue2 = $('#inputPasswordConfirm').val()
+
+
+            const pwReg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+            const pwCheck = pwReg.test(userPwValue)
+
+            const idReg = /^[A-Za-z]{1}(?=.*?[0-9])[A-Za-z0-9]{3,9}$/
+            const idCheck = idReg.test(userIdValue)
+
+            if (!userIdValue || !userPwValue) {
+                alert('빈칸없이 입력하세요')
+
+            } else if (!idCheck) {
+                alert('아이디는 영문소문자 숫자조합 4~10자')
+                //    여기다가 아이디 중복체크 하세요 넣을거에요
+
+            } else if (!pwCheck) {
+                alert('비밀번호는 대문자 소문자 숫자 특수기호를 포함한 8-20자')
+
+            } else if
+            (userPwValue !== userPwValue2) {
+                alert('패스워드가 일치하지 않습니다')
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/register",
+                    data: {
+                        id_give: userIdValue,
+                        pw_give: userPwValue,
+                        {#nickname_give: userNickValue#}
+                    },
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            alert('회원가입이 완료되었습니다.')
+                            window.location.href = '/login'
+                        } else {
+                            alert(response['msg'])
+                        }
+                    }
+                })
+            }
+        }
     </script>
 </head>
 <body>
@@ -140,10 +216,10 @@
         <div class="mb-3 row">
             <label for="inputPassword" class="col-sm-2 col-form-label">I D</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputPassword">
+                <input type="text" class="form-control" id="inputId">
             </div>
             <div class="id-check">
-                <button type="button" class="btn btn-outline-dark">중복확인</button>
+                <button type="button" class="btn btn-outline-dark" onclick="dupCheckId()">중복확인</button>
             </div>
         </div>
         <div class="pw">
@@ -156,12 +232,14 @@
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm- col-form-label">Password check</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword">
+                    <input type="password" class="form-control" id="inputPasswordConfirm">
                 </div>
             </div>
             <div class="pw-check">
-                <button type="button" class="btn btn-outline-dark">확인</button>
-                <button type="button" class="btn btn-outline-dark" style="margin-left: 20px">취소</button>
+                <button type="button" onclick="register()" class="btn btn-outline-dark">확인</button>
+                <button type="button" onclick="location.href ='/first' " class="btn btn-outline-dark"
+                        style="margin-left: 20px">취소
+                </button>
             </div>
         </div>
     </div>
