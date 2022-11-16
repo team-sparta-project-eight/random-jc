@@ -19,16 +19,15 @@ def product_get():
 
 # 댓글 데이터 저장
 @app.route("/product", methods=["POST"])
-def comment():
+def save_comment():
     comment_receive = request.form['comment_give']
     name_pk_receive = request.form['name_pk_give']
     doc={
         'commment': comment_receive,
         'name_pk': name_pk_receive
     }
-    db.product.update_one({'name': name_pk_receive  }, {'$set': {'comment': comment_receive}})
-
-
+    db.comment_list.insert_one(doc)
+    db.product.update_one({'name': 'name_pk'}, {'$set': {'comment': comment_receive}},upsert=True)
     return jsonify({'msg': '댓글 작성 완료!'})
 
 

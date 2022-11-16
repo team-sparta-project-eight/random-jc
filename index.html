@@ -87,6 +87,7 @@
 
         });
 
+
         //상품 랜덤 추출 및 댓글 보여지기
         function show_product() {
             $.ajax({
@@ -101,8 +102,9 @@
                     {
                         let name_pk = rows[i]['name']
                         let image = rows[i]['image']
-                        let user = rows[i]['users']
+                        let user = rows[i]['user']
                         let comment = rows[i]['comment']
+
 
                         let temp_name = `<div id="name" class="product-name">
                                                 ${name_pk}
@@ -113,9 +115,9 @@
                           </div>`
                         $('#image').append(temp_image)
 
-                        let temp_user = ` <div id="user"><li style="float:left;">${user}:</li><h7 id="comment"></h7></div>`
+                        let temp_user = ` <h6  id="user"> ${user}ㅤ:ㅤ</h6>`
                         $('#user').append(temp_user)
-                        let temp_comment = `<h7 id="comment">${comment}</h7></div>`
+                        let temp_comment = `<h6 id="comment">${comment}</h6>`
                         $('#comment').append(temp_comment)
                     }
 
@@ -129,8 +131,9 @@
 
         function save_comment() {
 
-            let comment = $('#Textarea').val()
-            let name_pk = $('#name').val()
+
+            let comment = $('#Textarea').val();
+            let name_pk = $('#name').val();
             //이 아래서부터 문제
             if (!comment) {
 
@@ -173,13 +176,13 @@
         <img class="image" src=>
     </div>
     <div id="name" class="product-name">
-
+<h7 id='cicici'></h7>
     </div>
     <div>
         <div style="overflow:scroll;width:790px;height:130px;" class="comment">
-            <div id="user">
-                <li style="float:left;"></li>
-                <h7 id="comment"></h7>
+            <div >
+                <h6 style="float:left;" id="user"></h6>
+                <h6 id="comment"></h6>
             </div>
 
 
@@ -198,6 +201,7 @@
         </div>
 
     </div>
+
 </div>
 
 
