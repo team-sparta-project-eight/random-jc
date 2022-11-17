@@ -101,7 +101,13 @@
             margin-right: 40px;
         }
 
-         .btn-outline-dark {             margin: 30px;         }         button {             margin: 5px;         }
+        .btn-outline-dark {
+            margin: 30px;
+        }
+
+        button {
+            margin: 5px;
+        }
 
 
         h1 {
@@ -109,7 +115,8 @@
             justify-content: center;
             background-color: transparent;
         }
-        .product-name{
+
+        .product-name {
             text-align: center;
         }
     </style>
@@ -173,7 +180,9 @@
                                                  <h6 style="float:left;" id="user">${user_id}ㅤ:</h6>
                                                   <h6 id="comment">ㅤ${comment}</h6>
                                                  <button type="button" class="btn btn-outline-danger change"
+
                                                     onclick="delComment(${num})">삭제</button>
+                                                    <button type="button" class="btn btn-outline-primary">수정</button>
                                                 </li>`
                         $('#comment-list').append(temp_html)
                     }
@@ -213,6 +222,7 @@
             }
         }
 
+        //댓글삭제
         function delComment(num) {
             console.log()
             $.ajax({
@@ -226,6 +236,21 @@
             });
         }
 
+        //댓글수정
+             function updateComment(num) {
+               console.log()
+             $.ajax({
+               type: "POST",
+              url: "/detail_update",
+             data: {num_give: num,
+                    comment_give : update_comment,
+                      },
+             success: function (response) {
+                alert(response["msg"])
+                window.location.reload()
+             }
+          });
+          }
     </script>
 
 </head>
@@ -241,7 +266,7 @@
 <div>
     <div class="mybox">
 
-      <div class="product-name" id="image">  </div>
+        <div class="product-name" id="image"></div>
 
         <div id="name" class="product-name"></div>
         <p></p>
