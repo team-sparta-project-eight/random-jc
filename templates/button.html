@@ -1,43 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
-
-    <title>음료 랜덤 추천</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>로그인</title>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
         <style>
-            .myground {
-                width: 100%;
-                height: 1050px;
-
-                background-color: rgb(138, 238, 203);
-                background-image: url('https://raw.githubusercontent.com/team-sparta-project-eight/random-jc/6934f43584efdda8def506188d25ff824f672bd4/static/cafe.png');
-                background-position: center 30%;
-                background-size: cover;
-
+            * {
+                font-family: 'Nanum Gothic', sans-serif;
+            }
+            a {
+                text-decoration: none;
                 color: black;
-
+            }
+            a:visited {
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: none;
+            }
+            a:focus {
+                text-decoration: none;
+            }
+            a:hover, active {
+                text-decoration: none;
+            }
+            body {
+                background-color: transparent;
+                margin: 0;
+                padding: 0;
+            }
+            body > img {
+                background-color: transparent;
+                position: fixed;
+                height: 100vh;
+                width: 100%;
+                top: 0;
+                opacity: 10%;
+                z-index: -999;
+            }
+            .main_header {
+                background-color: transparent;
+                margin: 0px;
+                height: 13vh;
                 display: flex;
-                flex-direction: column;
+                justify-content: space-between;
                 align-items: center;
+                border-bottom: 3px solid black;
+                padding-left: 30px;
+                font-size: 30px;
+            }
+            .wrap {
+                display: flex;
+                background-color: transparent;
+                margin-right: 40px;
+            }
+            button {
+                margin: 20px;
+            }
+            h1 {
+                display: flex;
                 justify-content: center;
+                background-color: transparent;
+            }
+            h2 {
+                margin-bottom: 40px;
+                font-size: 40px;
+            }
+            .img-box {
+                background-color: transparent;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                margin: auto;
+                margin-top:80px;
+                width: 500px;
+                height: 550px;
+            }
+            .img-box > button {
+                background-color: transparent;
+                border-radius: 15px;
+                margin-top: 6px;
+            }
+
+            #random_img {
+                width: 400px;
+                height: 400px;
+                display: flex;
+                border-radius: 194px;
+                opacity: 80%;
+            }
+
+            p {
+                font-size: 35px;
+                font-family: 'Jua', sans-serif;
             }
         </style>
+        <script type="text/javascript">
+            var imgArray = new Array();
+            imgArray[0] = "/static/1.jpg";
+            imgArray[1] = "/static/2.jpg";
+            imgArray[2] = "/static/3.jpg";
+            imgArray[3] = "/static/4.jpg";
+            imgArray[4] = "/static/5.jpg";
+            imgArray[5] = "/static/6.jpg";
+            imgArray[6] = "/static/7.jpg";
+            imgArray[7] = "/static/8.jpg";
+            imgArray[8] = "/static/9.jpg";
+
+            function showImage() {
+                var imgNum = Math.round(Math.random() * 8);
+                var objImg = document.getElementById("random_img");
+                objImg.src = imgArray[imgNum];
+                setTimeout(showImage, 800);
+            }
+        </script>
     </head>
-    <body>
-        <div class="myground">
-            <h1>오늘은?</h1>
-            <button onclick="location.href ='/loding'" type="button" class="mybtn" id="img_btn"><img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfDswRnjnX_NHjlrP_EhvMEvZnoHruySTK7A&usqp=CAU"></button>
+    <body onLoad="showImage()">
+        <img src="../static/cafe.png">
+        <div class="main_header">
+            <a href="#">스벅이면 다좋앙</a>
+            <div class="wrap">
+                <button type="button" onclick="location.href ='/login' " class="btn btn-outline-dark">로그인</button>
+                <button type="button" onclick="location.href ='/register' " class="btn btn-outline-dark">회원가입</button>
+            </div>
+        </div>
+        <div class="img-box">
+            <p>오늘 음료는?</p>
+            <img id="random_img">
+            <button onclick="location.href ='/loding'">click !</button>
         </div>
     </body>
 </html>
