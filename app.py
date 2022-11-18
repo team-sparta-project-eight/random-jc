@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 from pymongo import MongoClient
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.gok1afs.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('몽고db')
 db = client.dbsparta
 
 
