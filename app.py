@@ -10,7 +10,7 @@ import jwt
 app = Flask(__name__)
 
 from pymongo import MongoClient
-client = MongoClient('')
+client = MongoClient('몽고db주소')
 db = client.dbsparta
 
 # 페이지 영역
